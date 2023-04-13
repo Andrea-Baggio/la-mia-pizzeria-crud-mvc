@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "la-mia-pizzeria-static", "la-mia-pizzeria-static\la-mia-pizzeria-static.csproj", "{72D601B8-A0AD-4B67-A230-6D69B08F694D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Razor", "Razor\Razor.csproj", "{1A344E7E-1FEF-4B97-B986-208B9F93F8F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72D601B8-A0AD-4B67-A230-6D69B08F694D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D601B8-A0AD-4B67-A230-6D69B08F694D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D601B8-A0AD-4B67-A230-6D69B08F694D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D601B8-A0AD-4B67-A230-6D69B08F694D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A344E7E-1FEF-4B97-B986-208B9F93F8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A344E7E-1FEF-4B97-B986-208B9F93F8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A344E7E-1FEF-4B97-B986-208B9F93F8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A344E7E-1FEF-4B97-B986-208B9F93F8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D45692E-CF0A-45AC-A275-9EDBF40C0DC3}
+	EndGlobalSection
+EndGlobal

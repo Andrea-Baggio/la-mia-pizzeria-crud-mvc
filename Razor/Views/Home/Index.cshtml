@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Home Page";
+
+    var nome = "Andrea";
+    var cognome = "Baggio";
+
+    @functions {
+        public int Sum(int n)
+        {
+            int result = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                result += i;
+            }
+            return result;
+        }
+    }
+
+    string frase = "nel mezzo del cammin di nostra vita";
+    int count = frase.Count(c => c == 'a');
+
+    
+    var random = new Random();
+    var numbers = new List<int>();
+    int conto = 0;
+    while (conto < 20)
+    {
+        int randomNumber = random.Next(1, 90);
+        if (randomNumber >= 20 && randomNumber <= 70)
+        {
+            numbers.Add(randomNumber);
+            conto++;
+        }
+    }
+
+
+    DateTime date = DateTime.Now;
+    string formattedDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+    DateTime sevenDaysAgo = date.AddDays(-7);
+    DayOfWeek today = date.DayOfWeek;
+
+    DateTime nextYear = date.AddYears(1);
+    DayOfWeek day = nextYear.DayOfWeek;
+
+}
+
+<div class="text-center">
+    @{
+        <h2>@nome @cognome</h2>
+
+        <span>@Sum(3)</span>
+
+        <p>La lettera 'a' appare @count volte.</p>
+
+        foreach (var number in numbers)
+        {
+            <p>@number</p>
+        }
+
+        <p>@formattedDate</p>
+        <p>@sevenDaysAgo</p>
+        <p>@today</p>
+        <p>@day</p>
+
+    }
+</div>

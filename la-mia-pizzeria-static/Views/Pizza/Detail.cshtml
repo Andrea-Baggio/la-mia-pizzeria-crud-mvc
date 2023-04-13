@@ -1,0 +1,23 @@
+﻿@model Post
+
+@{
+	var post = Model;
+}
+
+<h2>@post.NomePizza</h2>
+
+<div class="container">
+		<div class="image">
+			<img class="post-link-image" src="@post.Immagine">
+		</div>
+		<div>
+			<p>
+				@post.Ingredienti
+			</p>
+		</div>
+		<div>
+			<p>
+				@post.Prezzo€
+			</p>
+		</div>
+</div>
