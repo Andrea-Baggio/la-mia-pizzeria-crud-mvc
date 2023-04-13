@@ -17,7 +17,9 @@ else
         @foreach (var post in posts)
         {
             <li><a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.NomePizza </a></li>
-            <span>Azioni</span>
+            <span>Azioni:</span>
+            <a href="@Url.Action("Update", "Pizza", new{ Id = post.Id })">Modifica</a>
+
         }
     </ul>    
     

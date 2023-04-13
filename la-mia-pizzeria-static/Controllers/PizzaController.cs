@@ -72,7 +72,34 @@ namespace la_mia_pizzeria_static.Controllers
             //return View(formModel);
         }
 
-        public IActionResult Privacy()
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Update(int id, Post post)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(post);
+			}
+
+            using var ctx = new PizzaContext();
+            var postToUpdate = ctx.Posts.FirstOrDefault(p => p.Id == id);
+
+            if (postToUpdate is null)
+            {
+                return View("NotFound");
+            }
+
+            postToUpdate.NomePizza = post.NomePizza;
+            postToUpdate.Immagine = post.Immagine;
+            postToUpdate.Ingredienti = post.Ingredienti;
+            postToUpdate.Prezzo = post.Prezzo;
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+		public IActionResult Privacy()
         {
             return View();
         }

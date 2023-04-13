@@ -7,7 +7,7 @@
 <h2>Modifica pizza</h2>
 
 <div class="container">
-	<form method="post" asp-controller="Pizza" asp-action="Create" enctype="multipart/form-data">
+	<form method="post" asp-controller="Pizza" asp-action="Update" enctype="multipart/form-data">
 		@Html.AntiForgeryToken()
 		<div>
 			<label asp-for="NomePizza">Nome della pizza</label>
@@ -36,6 +36,6 @@
 			<input type="number" min="1" asp-for="Prezzo" />
 			<span asp-validation-for="Prezzo" class="error"></span>
 		</div>
-		<button type="submit">Crea</button>
+		<button type="submit">Modifica</button>
 	</form>
 </div>
