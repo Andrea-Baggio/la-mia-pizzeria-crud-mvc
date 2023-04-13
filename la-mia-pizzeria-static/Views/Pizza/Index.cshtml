@@ -5,30 +5,20 @@
     var posts = Model;
 }
 
-<a href="@Url.Action("Create", "Pizza")">Crea</a>
+<button><a href="@Url.Action("Create", "Pizza")">Crea</a></button>
+
 @if (posts.Length is 0)
 {
     <p>No pizzas to display :\</p>
 }
 else
 {
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Foto</th>
-                <th>Ingredienti</th>
-                <th>Prezzo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ul>
-                @foreach (var post in posts)
-                {
-                    <li><a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.NomePizza </a></li>
-                }
-            </ul>
-            
-        </tbody>
-    </table>
+    <ul>
+        @foreach (var post in posts)
+        {
+            <li><a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.NomePizza </a></li>
+            <span>Azioni</span>
+        }
+    </ul>    
+    
 }

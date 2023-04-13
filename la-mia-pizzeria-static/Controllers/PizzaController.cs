@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using la_mia_pizzeria_static.Models;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_static.Controllers
 {
@@ -49,6 +50,27 @@ namespace la_mia_pizzeria_static.Controllers
 
             return RedirectToAction("Index");
 		}
+
+        public IActionResult Update(int id)
+        {
+            using var ctx = new PizzaContext();
+            var post = ctx.Posts.FirstOrDefault(p => p.Id == id); 
+
+            if (post is null)
+            {
+                return View("NotFound");
+            }
+
+            return View(post);
+
+            //var formModel = new PostFormModel
+            //{
+            //    Post = post,
+            //    Categories = ctx.Categories.ToArray()
+            //};
+
+            //return View(formModel);
+        }
 
         public IActionResult Privacy()
         {
