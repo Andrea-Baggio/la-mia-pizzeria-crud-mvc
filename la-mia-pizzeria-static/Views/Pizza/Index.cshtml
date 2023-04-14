@@ -9,7 +9,7 @@
 
 @if (posts.Length is 0)
 {
-    <p>No pizzas to display :\</p>
+    <p>No pizzas to display</p>
 }
 else
 {
@@ -17,9 +17,15 @@ else
         @foreach (var post in posts)
         {
             <li><a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.NomePizza </a></li>
-            <span>Azioni:</span>
-            <a href="@Url.Action("Update", "Pizza", new{ Id = post.Id })">Modifica</a>
+            <li> <img src="@post.Immagine" alt=""></li>
+                @*<a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.Immagine </a>*@
 
+            <button><a href="@Url.Action("Update", "Pizza", new{ Id = post.Id })">Modifica</a></button>            
+
+            <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@post.Id"> 
+                @Html.AntiForgeryToken()
+                <button type="submit">Elimina</button>
+            </form>
         }
     </ul>    
     
