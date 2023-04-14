@@ -48,7 +48,7 @@ namespace la_mia_pizzeria_static.Models
                     },
                     new Categoria
                     {
-                        NomeCategoria = "Pizze bianche"
+                        NomeCategoria = "Pizze bianche" 
                     },
                     new Categoria
                     {
