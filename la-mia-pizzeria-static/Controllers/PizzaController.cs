@@ -31,10 +31,16 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            using var ctx = new PizzaContext();
+            var formModel = new PostFormModel
+            {
+                Categorie = ctx.Categorie.ToArray()
+            };
+
+            return View(formModel);
         }
 
-		[HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
 		public IActionResult Create(Post post)
 		{

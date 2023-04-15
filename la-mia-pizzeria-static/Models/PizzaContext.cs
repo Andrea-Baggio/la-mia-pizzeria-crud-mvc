@@ -15,27 +15,27 @@ namespace la_mia_pizzeria_static.Models
 
         public void Seed()
         {
+            var postSeed = new Post[]
+            {
+                new Post
+                {
+                    NomePizza = "Margherita",
+                    Immagine = "https://picsum.photos/100",
+                    Ingredienti = "Pomodoro, Mozzarella, Basilico",
+                    Prezzo = 5.00m
+                },
+                new Post
+                {
+                    NomePizza = "Marinara",
+                    Immagine = "https://picsum.photos/100",
+                    Ingredienti = "Pomodoro, Aglio, Origano",
+                    Prezzo = 4.00m
+                }
+            };
+
             if (!Posts.Any())
             {
-                var seed = new Post[]
-                {
-                    new Post
-                    {
-                        NomePizza = "Margherita",
-                        Immagine = "https://picsum.photos/100",
-                        Ingredienti = "Pomodoro, Mozzarella, Basilico",
-                        Prezzo = 5.00m
-                    },
-                    new Post
-                    {
-                        NomePizza = "Marinara",
-                        Immagine = "https://picsum.photos/100",
-                        Ingredienti = "Pomodoro, Aglio, Origano",
-                        Prezzo = 4.00m
-                    }
-                };
-
-                Posts.AddRange(seed);
+                Posts.AddRange(postSeed);
             }
 
             if (!Categorie.Any())
@@ -44,7 +44,8 @@ namespace la_mia_pizzeria_static.Models
                 {
                     new Categoria
                     {
-                        NomeCategoria = "Pizze classiche"
+                        NomeCategoria = "Pizze classiche",
+                        Posts = postSeed //mettendo il seed dei post fuori dall'if e scrivendo questa stringa a riga 48 faccio in modo che tutti post del seed vengano associati a questa categoria
                     },
                     new Categoria
                     {
@@ -63,6 +64,7 @@ namespace la_mia_pizzeria_static.Models
                         NomeCategoria = "Pizze gourmet"
                     }
                 };
+                Categorie.AddRange(seed);
             }
             
             SaveChanges();
