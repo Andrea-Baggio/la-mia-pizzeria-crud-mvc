@@ -11,7 +11,7 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Index()
         {
             using var ctx = new PizzaContext();
-            var posts = ctx.Posts.ToArray();
+            var posts = ctx.Posts.Include(p => p.Categoria).ToArray();
 
             return View(posts);
         }
@@ -19,7 +19,7 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Detail(int id)
         {
             using var ctx = new PizzaContext();
-            var post = ctx.Posts.SingleOrDefault(p => p.Id == id);
+            var post = ctx.Posts.Include(p => p.Categoria).SingleOrDefault(p => p.Id == id);
 
             if (post is null)
             {
@@ -42,16 +42,16 @@ namespace la_mia_pizzeria_static.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public IActionResult Create(Post post)
+		public IActionResult Create(PostFormModel form)
 		{
             if (!ModelState.IsValid)
             {
-                return View(post);
+                return View(form);
             }
             
             using var ctx = new PizzaContext();
 
-            ctx.Posts.Add(post);
+            ctx.Posts.Add(form.Post);
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
@@ -67,27 +67,26 @@ namespace la_mia_pizzeria_static.Controllers
                 return View("NotFound");
             }
 
-            return View(post);
+            var formModel = new PostFormModel
+            {
+                Post = post,
+                Categorie = ctx.Categorie.ToArray()
+            };
 
-            //var formModel = new PostFormModel
-            //{
-            //    Post = post,
-            //    Categories = ctx.Categories.ToArray()
-            //};
-
-            //return View(formModel);
+            return View(formModel);
         }
 
-		[HttpPost]
+        [HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Update(int id, Post post)
+		public IActionResult Update(int id, PostFormModel form) 
 		{
+			using var ctx = new PizzaContext();
+
 			if (!ModelState.IsValid)
 			{
-				return View(post);
+				return View(form); 
 			}
 
-            using var ctx = new PizzaContext();
             var postToUpdate = ctx.Posts.FirstOrDefault(p => p.Id == id);
 
             if (postToUpdate is null)
@@ -95,12 +94,13 @@ namespace la_mia_pizzeria_static.Controllers
                 return View("NotFound");
             }
 
-            postToUpdate.NomePizza = post.NomePizza;
-            postToUpdate.Immagine = post.Immagine;
-            postToUpdate.Ingredienti = post.Ingredienti;
-            postToUpdate.Prezzo = post.Prezzo;
+            postToUpdate.NomePizza = form.Post.NomePizza;
+			postToUpdate.Immagine = form.Post.Immagine;
+			postToUpdate.Ingredienti = form.Post.Ingredienti;
+			postToUpdate.CategoriaId = form.Post.CategoriaId;
+			postToUpdate.Prezzo = form.Post.Prezzo;
 
-            ctx.SaveChanges();
+			ctx.SaveChanges();
 
             return RedirectToAction("Index");
         }

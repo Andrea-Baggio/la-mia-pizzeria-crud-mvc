@@ -1,40 +1,41 @@
-﻿@model Post
-
-@{
-	var post = Model;
-}
+﻿@model PostFormModel
 
 <h2>Modifica pizza</h2>
 
 <div class="container">
-	<form method="post" asp-controller="Pizza" asp-action="Update" enctype="multipart/form-data">
+	<form method="post" asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Post.Id" enctype="multipart/form-data">
 		@Html.AntiForgeryToken()
 		<div>
-			<label asp-for="NomePizza">Nome della pizza</label>
-			<input asp-for="NomePizza" />
-			<span asp-validation-for="NomePizza" class="error"></span>
+			<label asp-for="Post.NomePizza">Nome della pizza</label>
+			<input asp-for="Post.NomePizza" />
+			<span asp-validation-for="Post.NomePizza" class="error"></span>
 		</div>
 		<div>
-			<label asp-for="Immagine">Immagine</label>
-			<input asp-for="Immagine" />
-			<span asp-validation-for="Immagine" class="error"></span>
+			<label asp-for="Post.Immagine">Immagine</label>
+			<input asp-for="Post.Immagine" />
+			<span asp-validation-for="Post.Immagine" class="error"></span>
 
 		</div>
 		<div>
-			<label asp-for="Ingredienti">Ingredienti</label>
-			<textarea asp-for="Ingredienti"></textarea>
-			<span asp-validation-for="Ingredienti" class="error"></span>
+			<label asp-for="Post.Ingredienti">Ingredienti</label>
+			<textarea asp-for="Post.Ingredienti"></textarea>
+			<span asp-validation-for="Post.Ingredienti" class="error"></span>
 
 		</div>
-		@*<div> QUESTO PER L'IMPORT DELL'IMMAGINE
-		<label asp-for="Immagine">Immagine</label>
-		<input type="file" asp-for="Immagine" />
-		<span asp-validation-for="Immagine" class="text error"></span>
-		</div>*@
 		<div>
-			<label asp-for="Prezzo">Prezzo</label>
-			<input type="number" min="1" asp-for="Prezzo" />
-			<span asp-validation-for="Prezzo" class="error"></span>
+			<label asp-for="Post.Prezzo">Prezzo</label>
+			<input type="number" min="1" asp-for="Post.Prezzo" />
+			<span asp-validation-for="Post.Prezzo" class="error"></span>
+		</div>
+		<div>
+			<label asp-for="Post.CategoriaId">Categoria</label>
+			<select asp-for="Post.CategoriaId">
+				@foreach (var cat in Model.Categorie)
+				{
+					<option value="@cat.Id">@cat.NomeCategoria</option>
+				}
+			</select>
+			<span asp-validation-for="Post.CategoriaId"></span>
 		</div>
 		<button type="submit">Modifica</button>
 	</form>

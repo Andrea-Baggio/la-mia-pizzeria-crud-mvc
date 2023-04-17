@@ -18,7 +18,7 @@ else
         {
             <li><a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.NomePizza </a></li>
             <li> <img src="@post.Immagine" alt=""></li>
-                @*<a href="@Url.Action("Detail", "Pizza", new{ Id = post.Id })">@post.Immagine </a>*@
+            <li>@post.Categoria!.NomeCategoria</li>
 
             <button><a href="@Url.Action("Update", "Pizza", new{ Id = post.Id })">Modifica</a></button>            
 

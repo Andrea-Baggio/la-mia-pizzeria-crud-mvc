@@ -18,7 +18,7 @@ namespace la_mia_pizzeria_static.Models
         [Range(1, int.MaxValue, ErrorMessage = "Il valore deve essere maggiore o uguale a 1")]
         public decimal Prezzo { get; set; }
 
-        public int CategoriaId { get; set; }
+		public int CategoriaId { get; set; }
         public Categoria? Categoria { get; set; }
     }
 }

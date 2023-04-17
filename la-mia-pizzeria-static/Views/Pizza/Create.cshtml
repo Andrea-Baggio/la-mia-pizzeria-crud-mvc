@@ -7,12 +7,12 @@
 		@Html.AntiForgeryToken()
 		<div>
 			<label asp-for="Post.NomePizza">Nome della pizza</label>
-			<input asp-for="Post.NomePizza" />
+			<input asp-for="Post.NomePizza"/>
 			<span asp-validation-for="Post.NomePizza" class="error"></span>
 		</div>
 		<div>
 			<label asp-for="Post.Immagine">Immagine</label>
-			<input asp-for="Post.Immagine" />
+			<input asp-for="Post.Immagine"/>
 			<span asp-validation-for="Post.Immagine" class="error"></span>
 
         </div>
@@ -22,20 +22,14 @@
 			<span asp-validation-for="Post.Ingredienti" class="error"></span>
 
 		</div>
-		@*<div> QUESTO PER L'IMPORT DELL'IMMAGINE
-			<label asp-for="Immagine">Immagine</label>
-			<input type="file" asp-for="Immagine" />
-			<span asp-validation-for="Immagine" class="text error"></span>
-		</div>*@
 		<div>
 			<label asp-for="Post.Prezzo">Prezzo</label>
 			<input type="number" min="1" asp-for="Post.Prezzo" />
 			<span asp-validation-for="Post.Prezzo" class="error"></span>
 		</div>
 		<div>
-			<label asp-for="Post.CategoriaId">Category</label>
+			<label asp-for="Post.CategoriaId">Categoria</label>
 			<select asp-for="Post.CategoriaId">
-				<option value="0"></option>
 				@foreach (var cat in Model.Categorie)
 				{
 					<option value="@cat.Id">@cat.NomeCategoria</option>
