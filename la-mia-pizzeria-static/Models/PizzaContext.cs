@@ -6,6 +6,7 @@ namespace la_mia_pizzeria_static.Models
     {
         public DbSet<Post> Posts { get; set; }
         public DbSet<Categoria> Categorie { get; set; }
+        public DbSet<Condiment> Condiments { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -45,7 +46,7 @@ namespace la_mia_pizzeria_static.Models
                     new Categoria
                     {
                         NomeCategoria = "Pizze classiche",
-                        Posts = postSeed //mettendo il seed dei post fuori dall'if e scrivendo questa stringa a riga 48 faccio in modo che tutti post del seed vengano associati a questa categoria
+                        Posts = postSeed //mettendo il seed dei post fuori dall'if e scrivendo questa stringa faccio in modo che tutti post del seed vengano associati a questa categoria
                     },
                     new Categoria
                     {
@@ -66,7 +67,45 @@ namespace la_mia_pizzeria_static.Models
                 };
                 Categorie.AddRange(seed);
             }
-            
+
+            if (!Condiments.Any())
+            {
+                var seed = new Condiment[]
+                {
+                    new Condiment
+                    {
+                        CondimentName = "Prosciutto",
+                        Posts = postSeed 
+                    },
+                    new Condiment
+                    {
+                        CondimentName = "Ananas"
+                    },
+                    new Condiment
+                    {
+                        CondimentName = "Carciofini"
+                    },
+                    new Condiment
+                    {
+                        CondimentName = "Olive"
+                    },
+                    new Condiment
+                    {
+                        CondimentName = "Noci"
+                    },
+                    new Condiment
+                    {
+                        CondimentName = "Radicchio"
+                    },
+                    new Condiment
+                    {
+                        CondimentName = "Gorgonzola"
+                    }
+                };
+
+                Condiments.AddRange(seed);
+            }
+
             SaveChanges();
         }
 

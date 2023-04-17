@@ -10,6 +10,6 @@ namespace la_mia_pizzeria_static.Models
         [StringLength(50, ErrorMessage = "Il nome deve avere meno di 50 caratteri.")]
         public string NomeCategoria { get; set; } = string.Empty;
 
-         public IEnumerable<Post>? Posts { get; set; }
+        public IEnumerable<Post>? Posts { get; set; }
     }
 }
