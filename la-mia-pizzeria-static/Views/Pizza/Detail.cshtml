@@ -17,6 +17,17 @@
 		</div>
 		<div>
 			<p>
+            Condimenti:
+			</p>
+			
+			@foreach (var condiment in post.Condiments!)
+			{
+				<span>@condiment.CondimentName</span>
+			}			
+			
+		</div>
+		<div>
+			<p>
 				@post.Prezzo€
 			</p>
 		</div>

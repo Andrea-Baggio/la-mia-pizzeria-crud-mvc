@@ -37,6 +37,10 @@
 			</select>
 			<span asp-validation-for="Post.CategoriaId"></span>
 		</div>
+		<div>
+			<label asp-for="SelectedCondiments">Condimenti</label>
+			<select asp-for="SelectedCondiments" multiple="multiple" asp-items="@Model.Condiments"></select>
+		</div>
 		<button type="submit">Modifica</button>
 	</form>
 </div>

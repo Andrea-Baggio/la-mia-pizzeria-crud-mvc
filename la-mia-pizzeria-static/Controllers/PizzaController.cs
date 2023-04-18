@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using la_mia_pizzeria_static.Models;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace la_mia_pizzeria_static.Controllers
 {
@@ -19,9 +20,13 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Detail(int id)
         {
             using var ctx = new PizzaContext();
-            var post = ctx.Posts.Include(p => p.Categoria).SingleOrDefault(p => p.Id == id);
+            var post = ctx.Posts
+                .Include(p => p.Categoria)
+			    .Include(p => p.Condiments)
+                .SingleOrDefault(p => p.Id == id);
 
-            if (post is null)
+
+			if (post is null)
             {
                 return View("NotFound", "Post not found.");
             }
@@ -34,7 +39,8 @@ namespace la_mia_pizzeria_static.Controllers
             using var ctx = new PizzaContext();
             var formModel = new PostFormModel
             {
-                Categorie = ctx.Categorie.ToArray()
+                Categorie = ctx.Categorie.ToArray(),
+                Condiments = ctx.Condiments.Select(c => new SelectListItem(c.CondimentName, c.Id.ToString())).ToArray()
             };
 
             return View(formModel);
@@ -44,14 +50,19 @@ namespace la_mia_pizzeria_static.Controllers
         [ValidateAntiForgeryToken]
 		public IActionResult Create(PostFormModel form)
 		{
-            if (!ModelState.IsValid)
-            {
-                return View(form);
-            }
-            
             using var ctx = new PizzaContext();
 
-            ctx.Posts.Add(form.Post);
+            if (!ModelState.IsValid)
+            {
+                form.Categorie = ctx.Categorie.ToArray();
+                form.Condiments = ctx.Condiments.Select(c => new SelectListItem(c.CondimentName, c.Id.ToString())).ToArray();
+
+                return View(form);
+            }
+
+            form.Post.Condiments = form.SelectedCondiments.Select( sc => ctx.Condiments.First(c => c.Id == sc.Id));
+
+			ctx.Posts.Add(form.Post);
             ctx.SaveChanges();
 
             return RedirectToAction("Index");
@@ -60,7 +71,7 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Update(int id)
         {
             using var ctx = new PizzaContext();
-            var post = ctx.Posts.FirstOrDefault(p => p.Id == id); 
+            var post = ctx.Posts.Include(p => p.Condiments).FirstOrDefault(p => p.Id == id); 
 
             if (post is null)
             {
@@ -70,8 +81,12 @@ namespace la_mia_pizzeria_static.Controllers
             var formModel = new PostFormModel
             {
                 Post = post,
-                Categorie = ctx.Categorie.ToArray()
-            };
+				Categorie = ctx.Categorie.ToArray(),
+				Condiments = ctx.Condiments.ToArray().Select(c => new SelectListItem(
+                    c.CondimentName, 
+                    c.Id.ToString(), 
+                    post.Condiments!.Any(_c => _c.Id == _c.Id))).ToArray()
+			};
 
             return View(formModel);
         }
@@ -84,6 +99,9 @@ namespace la_mia_pizzeria_static.Controllers
 
 			if (!ModelState.IsValid)
 			{
+				form.Categorie = ctx.Categorie.ToArray();
+				form.Condiments = ctx.Condiments.Select(c => new SelectListItem(c.CondimentName, c.Id.ToString())).ToArray();
+
 				return View(form); 
 			}
 
@@ -99,6 +117,8 @@ namespace la_mia_pizzeria_static.Controllers
 			postToUpdate.Ingredienti = form.Post.Ingredienti;
 			postToUpdate.CategoriaId = form.Post.CategoriaId;
 			postToUpdate.Prezzo = form.Post.Prezzo;
+
+            form.Post.Condiments = form.SelectedCondiments.Select(sc => ctx.Condiments.First(c => c.Id == sc.Id));
 
 			ctx.SaveChanges();
 

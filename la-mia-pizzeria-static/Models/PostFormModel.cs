@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace la_mia_pizzeria_static.Models
 {
@@ -6,5 +7,9 @@ namespace la_mia_pizzeria_static.Models
     {
         public Post Post { get; set; } = new Post();
 		public IEnumerable<Categoria> Categorie { get; set; } = Enumerable.Empty<Categoria>();
+
+        public IEnumerable<SelectListItem> Condiments { get; set; } = Enumerable.Empty<SelectListItem>();
+        public List<Condiment> SelectedCondiments { get; set; } = new();
+
     }
 }
