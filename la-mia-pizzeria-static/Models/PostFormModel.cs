@@ -9,7 +9,7 @@ namespace la_mia_pizzeria_static.Models
 		public IEnumerable<Categoria> Categorie { get; set; } = Enumerable.Empty<Categoria>();
 
         public IEnumerable<SelectListItem> Condiments { get; set; } = Enumerable.Empty<SelectListItem>();
-        public List<Condiment> SelectedCondiments { get; set; } = new();
+        public List<string> SelectedCondiments { get; set; } = new();
 
     }
 }

@@ -60,7 +60,7 @@ namespace la_mia_pizzeria_static.Controllers
                 return View(form);
             }
 
-            form.Post.Condiments = form.SelectedCondiments.Select( sc => ctx.Condiments.First(c => c.Id == sc.Id));
+            form.Post.Condiments = form.SelectedCondiments.Select(sc => ctx.Condiments.First(c => c.Id == Convert.ToInt32(sc))).ToList();
 
 			ctx.Posts.Add(form.Post);
             ctx.SaveChanges();
@@ -118,9 +118,9 @@ namespace la_mia_pizzeria_static.Controllers
 			postToUpdate.CategoriaId = form.Post.CategoriaId;
 			postToUpdate.Prezzo = form.Post.Prezzo;
 
-            form.Post.Condiments = form.SelectedCondiments.Select(sc => ctx.Condiments.First(c => c.Id == sc.Id));
+            form.Post.Condiments = form.SelectedCondiments.Select(sc => ctx.Condiments.First(c => c.Id == Convert.ToInt32(sc))).ToList();
 
-			ctx.SaveChanges();
+            ctx.SaveChanges();
 
             return RedirectToAction("Index");
         }
